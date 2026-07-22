@@ -28,6 +28,9 @@ mongoose.connect(process.env.MONGO_URI)
   // Routes
 app.use('/api/auth', authRoutes);
 
+const taskRoutes = require('./routes/taskRoutes');
+app.use('/api/tasks', taskRoutes);
+
 // Global error handling middleware
 app.use((err, req, res, next) => {
   console.error('Global Error:', err.stack);

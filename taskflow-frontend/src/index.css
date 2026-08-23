@@ -5,3 +5,29 @@
 body {
   font-family: 'Inter', system-ui, sans-serif;
 }
+
+.card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+.dark {
+  color: #e5e7eb;
+}
+
+.dark input, .dark textarea, .dark select {
+  color: #f3f4f6;
+  background-color: #1f2937;
+}
+
+.dark .text-gray-600 {
+  color: #9ca3af;
+}
+
+.dark .text-gray-500 {
+  color: #6b7280;
+}

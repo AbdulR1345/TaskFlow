@@ -18,8 +18,51 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Password is required'],
     minlength: [6, 'Password must be at least 6 characters']
+  },
+  resetPasswordToken: {
+    type: String,
+    default: null
+  },
+  resetPasswordExpires: {
+    type: Date,
+    default: null
+  },
+
+  isVerified: {
+    type: Boolean,
+    default: false
+  },
+  verificationToken: {
+    type: String,
+    default: null
+  },
+  verificationTokenExpires: {
+    type: Date,
+    default: null
+  },
+  avatarUrl: {
+    type: String,
+    default: ''
+  },
+  avatarPublicId: {
+    type: String,
+    default: null
+  },
+  // Subscription / Premium fields
+  isPremium: {
+    type: Boolean,
+    default: false
+  },
+  premiumExpiresAt: {
+    type: Date,
+    default: null
+  },
+  razorpayCustomerId: {
+    type: String,
+    default: null
   }
 }, { timestamps: true });
+
 
 // Hash password before saving
 userSchema.pre('save', async function () {

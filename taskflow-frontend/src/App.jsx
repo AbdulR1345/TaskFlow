@@ -3,12 +3,20 @@ import { AuthProvider } from './context/AuthContext';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Tasks from './pages/Tasks';
+import Profile from './pages/Profile';
+import ForgotPassword from './pages/ForgotPassword';
+import { Toaster } from "react-hot-toast";
+import ResetPassword from './pages/ResetPassword';
+import VerifyEmail from './pages/VerifyEmail';
 
 function App() {
   return (
     <AuthProvider>
       <Router>
         <div className="min-h-screen bg-gray-50">
+          {/* 👇 Add Toaster here */}
+          <Toaster position="top-right" reverseOrder={false} />
+
           <Routes>
             <Route path="/" element={
               <div className="max-w-7xl mx-auto px-6 py-20 text-center">
@@ -28,11 +36,16 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/tasks" element={<Tasks />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password/:token" element={<ResetPassword />} />
+            <Route path="/verify-email/:token" element={<VerifyEmail />} />
           </Routes>
         </div>
       </Router>
     </AuthProvider>
   );
 }
+
 
 export default App;

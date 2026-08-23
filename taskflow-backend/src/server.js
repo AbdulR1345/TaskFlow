@@ -27,7 +27,7 @@ const io = new Server(httpServer, {
 // Middleware
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: ["http://localhost:5173", "https://task-flow-six-inky.vercel.app"],
     credentials: true,
   }),
 );

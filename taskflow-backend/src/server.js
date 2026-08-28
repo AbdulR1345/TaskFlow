@@ -10,6 +10,7 @@ const passport = require("./config/passport");
 const startReminderJob = require("./jobs/reminderJob");
 const paymentRoutes = require("./routes/paymentRoutes");
 const aiRoutes = require("./routes/aiRoutes");
+
 // Load environment variables
 dotenv.config();
 

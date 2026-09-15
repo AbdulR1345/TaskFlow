@@ -19,7 +19,7 @@ const app = express();
 const httpServer = http.createServer(app);
 const io = new Server(httpServer, {
   cors: {
-    origin: ["http://localhost:5173"],
+    origin: ["http://localhost:5173", "https://task-flow-six-inky.vercel.app"],
     credentials: true,
     methods: ["GET", "POST"],
   },
@@ -64,12 +64,15 @@ mongoose
 startReminderJob();
 
 // Routes
+// Routes
 app.use("/api/auth", authRoutes);
 
 const taskRoutes = require("./routes/taskRoutes");
 app.use("/api/tasks", taskRoutes);
 app.use("/api/payment", paymentRoutes);
-// Global error handling middleware
+app.use("/api/ai", aiRoutes);
+
+// Global error handling middleware (must be last)
 app.use((err, req, res, next) => {
   console.error("Global Error:", err.stack);
   res.status(500).json({
@@ -77,8 +80,6 @@ app.use((err, req, res, next) => {
     error: err.message,
   });
 });
-
-app.use("/api/ai", aiRoutes);
 
 // Start server
 const PORT = process.env.PORT || 5000;

@@ -320,9 +320,9 @@ const googleCallback = async (req, res) => {
     });
 
     // Redirect to frontend with token
-    res.redirect(`http://localhost:5173/tasks?token=${token}`);
+    res.redirect(`${process.env.CLIENT_URL}/tasks?token=${token}`);
   } catch (error) {
-    res.redirect("http://localhost:5173/login?error=google_failed");
+    res.redirect(`${process.env.CLIENT_URL}/login?error=google_failed`);
   }
 };
 

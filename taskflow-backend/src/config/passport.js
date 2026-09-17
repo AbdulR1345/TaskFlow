@@ -42,9 +42,8 @@ passport.use(
           googleId: profile.id,
           isVerified: true,
           avatarUrl: profile.photos?.[0]?.value || "",
-          // No password needed for Google users
+          // no password field
         });
-
         return done(null, user);
       } catch (error) {
         return done(error, null);

@@ -215,17 +215,18 @@ const register = async (req, res) => {
       .update(verificationToken)
       .digest("hex");
 
-    // Create user with verification token
+    // Create user
     const user = await User.create({
       name,
       email,
       password,
       verificationToken: hashedToken,
-      verificationTokenExpires: Date.now() + 24 * 60 * 60 * 1000, // 24 hours
+      verificationTokenExpires: Date.now() + 24 * 60 * 60 * 1000,
     });
 
     // Create verification URL
-    const verifyURL = `${process.env.CLIENT_URL}/verify-email?token=${verificationToken}`; // Email Template
+    const verifyURL = `${process.env.CLIENT_URL}/verify-email?token=${verificationToken}`;
+
     const message = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <h2 style="color: #4f46e5;">Welcome to TaskFlow!</h2>
@@ -245,14 +246,17 @@ const register = async (req, res) => {
       </div>
     `;
 
-    // Send verification email
-    await sendEmail({
-      email: user.email,
-      subject: "Verify Your Email - TaskFlow",
-      html: message,
-    });
+    // Try to send email (don't fail registration if email fails)
+    try {
+      await sendEmail({
+        email: user.email,
+        subject: "Verify Your Email - TaskFlow",
+        html: message,
+      });
+    } catch (emailError) {
+      console.error("Email sending failed:", emailError.message);
+    }
 
-    // Don't auto-login. Tell user to verify email first
     res.status(201).json({
       success: true,
       message:
@@ -501,16 +505,16 @@ const resendVerification = async (req, res) => {
       .digest("hex");
 
     user.verificationToken = hashedToken;
-    user.verificationTokenExpires = Date.now() + 24 * 60 * 60 * 1000; // 24 hours
+    user.verificationTokenExpires = Date.now() + 24 * 60 * 60 * 1000;
     await user.save();
 
-    // Create verification URL
     const verifyURL = `${process.env.CLIENT_URL}/verify-email?token=${verificationToken}`;
+
     const message = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <h2 style="color: #4f46e5;">Verify Your Email - TaskFlow</h2>
         <p>Hello ${user.name},</p>
-        <p>You requested a new verification email. Please click the button below to verify your account.</p>
+        <p>You requested a new verification email. Please click the button below.</p>
         
         <a href="${verifyURL}" 
            style="display: inline-block; background-color: #4f46e5; color: white; 
@@ -524,11 +528,15 @@ const resendVerification = async (req, res) => {
       </div>
     `;
 
-    await sendEmail({
-      email: user.email,
-      subject: "Verify Your Email - TaskFlow",
-      html: message,
-    });
+    try {
+      await sendEmail({
+        email: user.email,
+        subject: "Verify Your Email - TaskFlow",
+        html: message,
+      });
+    } catch (emailError) {
+      console.error("Email sending failed:", emailError.message);
+    }
 
     res.json({
       success: true,

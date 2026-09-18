@@ -225,8 +225,7 @@ const register = async (req, res) => {
     });
 
     // Create verification URL
-    const verifyURL = `${process.env.CLIENT_URL}/verify-email?token=${token}`;
-    // Email Template
+    const verifyURL = `${process.env.CLIENT_URL}/verify-email?token=${verificationToken}`; // Email Template
     const message = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <h2 style="color: #4f46e5;">Welcome to TaskFlow!</h2>
@@ -357,8 +356,7 @@ const forgotPassword = async (req, res) => {
     await user.save();
 
     // Create reset URL
-    const resetURL = `${process.env.CLIENT_URL}/reset-password?token=${token}`;
-
+    const resetURL = `${process.env.CLIENT_URL}/reset-password?token=${resetToken}`;
     // Email Template
     const message = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -507,8 +505,7 @@ const resendVerification = async (req, res) => {
     await user.save();
 
     // Create verification URL
-    const verifyURL = `http://localhost:5173/verify-email/${verificationToken}`;
-
+    const verifyURL = `${process.env.CLIENT_URL}/verify-email?token=${verificationToken}`;
     const message = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <h2 style="color: #4f46e5;">Verify Your Email - TaskFlow</h2>

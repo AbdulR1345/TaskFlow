@@ -256,11 +256,12 @@ const login = async (req, res) => {
       return res.status(401).json({ message: "Invalid email or password" });
     }
 
-    if (!user.isVerified) {
-      return res
-        .status(401)
-        .json({ message: "Please verify your email before logging in" });
-    }
+    // Temporarily disabled for live demo (email not working on Render free tier)
+    // if (!user.isVerified) {
+    //   return res
+    //     .status(401)
+    //     .json({ message: "Please verify your email before logging in" });
+    // }
 
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {

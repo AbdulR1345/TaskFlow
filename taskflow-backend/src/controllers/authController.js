@@ -225,38 +225,11 @@ const register = async (req, res) => {
     });
 
     // Create verification URL
+    // Create verification URL (for future use)
     const verifyURL = `${process.env.CLIENT_URL}/verify-email?token=${verificationToken}`;
+    console.log("Verification link:", verifyURL);
 
-    const message = `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <h2 style="color: #4f46e5;">Welcome to TaskFlow!</h2>
-        <p>Hello ${user.name},</p>
-        <p>Thank you for registering. Please verify your email address by clicking the button below.</p>
-        
-        <a href="${verifyURL}" 
-           style="display: inline-block; background-color: #4f46e5; color: white; 
-                  padding: 12px 24px; text-decoration: none; border-radius: 8px; 
-                  margin: 20px 0;">
-          Verify Email
-        </a>
-        
-        <p>This link will expire in 24 hours.</p>
-        <p>If you did not create an account, please ignore this email.</p>
-        <p>Thanks,<br>TaskFlow Team</p>
-      </div>
-    `;
-
-    // Try to send email (don't fail registration if email fails)
-    try {
-      await sendEmail({
-        email: user.email,
-        subject: "Verify Your Email - TaskFlow",
-        html: message,
-      });
-    } catch (emailError) {
-      console.error("Email sending failed:", emailError.message);
-    }
-
+    // Return success immediately (email temporarily disabled)
     res.status(201).json({
       success: true,
       message:

@@ -282,6 +282,8 @@ const login = async (req, res) => {
         email: user.email,
         avatarUrl: user.avatarUrl || "",
         avatarPublicId: user.avatarPublicId || null,
+        isPremium: user.isPremium || false,
+        premiumExpires: user.premiumExpires || null,
       },
     });
   } catch (error) {

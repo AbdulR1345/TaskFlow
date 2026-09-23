@@ -33,7 +33,15 @@ const uploadBufferToCloudinary = (buffer, folder = "taskflow/avatars") => {
 const getMe = async (req, res) => {
   res.json({
     success: true,
-    user: req.user,
+    user: {
+      id: req.user._id,
+      name: req.user.name,
+      email: req.user.email,
+      avatarUrl: req.user.avatarUrl || "",
+      avatarPublicId: req.user.avatarPublicId || null,
+      isPremium: req.user.isPremium || false,
+      premiumExpires: req.user.premiumExpires || null,
+    },
   });
 };
 

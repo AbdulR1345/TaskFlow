@@ -83,101 +83,36 @@ const Profile = () => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    setAvatarFile(file);
-    setSuccess("");
-    setError("");
+    if (!file.type.startsWith("image/")) {
+      setError("Please select an image file");
+      return;
+    }
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      const imageUrl = reader.result;
-      const img = new Image();
-      img.src = imageUrl;
-      img.onload = () => {
-        const fitScale = Math.max(
-          1,
-          320 / img.naturalWidth,
-          320 / img.naturalHeight,
-        );
-        setImageDimensions({
-          width: img.naturalWidth,
-          height: img.naturalHeight,
-        });
-        setMinScale(fitScale);
-        setCropScale(fitScale);
-        setCropOffset({ x: 0, y: 0 });
-        setAvatarSource(imageUrl);
-      };
-      img.onerror = () => {
-        setError("Unable to read the selected image");
-      };
-    };
-    reader.readAsDataURL(file);
+    setAvatarFile(file);
+    setAvatarPreview(URL.createObjectURL(file));
+    setError("");
+    setSuccess("");
   };
 
   const handleAvatarUpload = async () => {
-    if (!avatarFile || !avatarSource) return;
+    if (!avatarFile) return;
 
     setUploading(true);
-    setSuccess("");
     setError("");
+    setSuccess("");
 
     try {
-      const img = new Image();
-      img.src = avatarSource;
-
-      await new Promise((resolve, reject) => {
-        img.onload = resolve;
-        img.onerror = reject;
-      });
-
-      const canvas = document.createElement("canvas");
-      const cropSize = 320;
-      canvas.width = cropSize;
-      canvas.height = cropSize;
-      const ctx = canvas.getContext("2d");
-
-      const scale = Math.max(minScale, cropScale);
-      const sourceWidth = cropSize / scale;
-      const sourceHeight = cropSize / scale;
-      const centerX = (img.naturalWidth - sourceWidth) / 2;
-      const centerY = (img.naturalHeight - sourceHeight) / 2;
-      const sourceX = clamp(
-        centerX - cropOffset.x / scale,
-        0,
-        img.naturalWidth - sourceWidth,
-      );
-      const sourceY = clamp(
-        centerY - cropOffset.y / scale,
-        0,
-        img.naturalHeight - sourceHeight,
-      );
-
-      ctx.drawImage(
-        img,
-        sourceX,
-        sourceY,
-        sourceWidth,
-        sourceHeight,
-        0,
-        0,
-        cropSize,
-        cropSize,
-      );
-
-      const blob = await new Promise((resolve) =>
-        canvas.toBlob(resolve, "image/jpeg", 0.9),
-      );
       const formData = new FormData();
-      formData.append("avatar", blob, avatarFile.name || "avatar.jpg");
+      formData.append("avatar", avatarFile);
 
       const res = await API.put("/auth/avatar", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
       updateUser(res.data.user);
-      setAvatarPreview(res.data.user.avatarUrl || "");
-      setSuccess(res.data.message);
-      resetPendingAvatar();
+      setAvatarPreview(res.data.user.avatarUrl);
+      setSuccess(res.data.message || "Profile picture uploaded");
+      setAvatarFile(null);
     } catch (err) {
       setError(err.response?.data?.message || "Image upload failed");
     }

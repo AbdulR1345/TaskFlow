@@ -240,8 +240,7 @@ const register = async (req, res) => {
     // Return success immediately (email temporarily disabled)
     res.status(201).json({
       success: true,
-      message:
-        "Registration successful! Please check your email to verify your account.",
+      message: "Registration successful! Please log in to continue.",
     });
   } catch (error) {
     console.error("Register Error:", error);

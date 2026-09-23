@@ -281,95 +281,46 @@ const Profile = () => {
             </div>
 
             <div className="mt-8">
-              <label className="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">
-                Upload profile picture
-              </label>
-              {avatarPreview && (
-                <button
-                  type="button"
-                  onClick={handleRemoveAvatar}
-                  className="mb-4 text-sm text-red-500 hover:text-red-600 font-medium"
-                >
-                  Remove current avatar
-                </button>
-              )}
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                onChange={handleAvatarSelect}
-                className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
-              />
+              <div className="mt-8">
+                <label className="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">
+                  Upload profile picture
+                </label>
 
-              {avatarSource && (
-                <div className="mt-5 rounded-3xl border border-gray-200 dark:border-gray-700 p-4 space-y-4">
-                  <div className="flex items-center justify-between">
-                    <p className="text-sm font-medium text-gray-700 dark:text-gray-200">
-                      Crop your image
-                    </p>
-                    <button
-                      type="button"
-                      onClick={resetPendingAvatar}
-                      className="text-sm text-red-500 hover:text-red-600"
-                    >
-                      Remove
-                    </button>
-                  </div>
+                {avatarPreview && (
+                  <button
+                    type="button"
+                    onClick={handleRemoveAvatar}
+                    className="mb-4 text-sm text-red-500 hover:text-red-600 font-medium"
+                  >
+                    Remove current avatar
+                  </button>
+                )}
 
-                  <div className="relative mx-auto w-full max-w-[320px] h-[320px] rounded-full bg-gray-100 dark:bg-gray-900 overflow-hidden cursor-move border-[4px] border-white shadow-inner">
-                    <div className="absolute inset-0 rounded-full border-[2px] border-dashed border-indigo-400 z-10 pointer-events-none" />
-                    <div
-                      className="absolute inset-0 flex items-center justify-center"
-                      onPointerDown={handlePointerDown}
-                      onPointerMove={handlePointerMove}
-                      onPointerUp={handlePointerUp}
-                      onPointerLeave={handlePointerUp}
-                    >
-                      <img
-                        src={avatarSource}
-                        alt="Crop preview"
-                        className="max-w-none select-none"
-                        style={{
-                          transform: `translate(${cropOffset.x}px, ${cropOffset.y}px) scale(${cropScale})`,
-                          transformOrigin: "center center",
-                        }}
-                      />
-                    </div>
-                  </div>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleAvatarSelect}
+                  className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+                />
 
-                  <div className="space-y-2">
-                    <label className="text-sm text-gray-500 dark:text-gray-400">
-                      Zoom
-                    </label>
-                    <input
-                      type="range"
-                      min="1"
-                      max="3"
-                      step="0.1"
-                      value={cropScale}
-                      onChange={(e) => setCropScale(Number(e.target.value))}
-                      className="w-full"
-                    />
-                  </div>
-
+                {avatarFile && (
                   <button
                     type="button"
                     onClick={handleAvatarUpload}
                     disabled={uploading}
-                    className="w-full bg-indigo-600 text-white px-6 py-3 rounded-2xl hover:bg-indigo-700 transition font-medium"
+                    className="mt-4 w-full bg-indigo-600 text-white px-6 py-3 rounded-2xl hover:bg-indigo-700 transition font-medium"
                   >
-                    {uploading ? "Uploading..." : "Upload cropped image"}
+                    {uploading ? "Uploading..." : "Upload Photo"}
                   </button>
-                </div>
-              )}
+                )}
 
-              {uploading && (
-                <p className="text-sm text-indigo-600 mt-2">
-                  Uploading image...
-                </p>
-              )}
+                {uploading && (
+                  <p className="text-sm text-indigo-600 mt-2">Uploading image...</p>
+                )}
+              </div>
             </div>
-
+                   
             <form onSubmit={handleProfileUpdate} className="mt-8 space-y-6">
               <div>
                 <label className="block text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">

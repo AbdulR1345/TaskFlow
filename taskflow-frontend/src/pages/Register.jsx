@@ -20,7 +20,7 @@ const Register = () => {
     try {
       const res = await API.post("/auth/register", formData);
       toast.success(
-        res.data.message || "Registration successful! Check your email.",
+        res.data.message || "Registration successful! Now you can log in.",
       );
 
       setTimeout(() => {

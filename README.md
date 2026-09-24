@@ -15,7 +15,7 @@ A full-stack task management application built with the MERN stack.
 - Google OAuth login
 - JWT-based authentication
 - Password reset flow
-- Email verification (implemented)
+- Email verification
 
 ### Task Management
 
@@ -72,7 +72,7 @@ A full-stack task management application built with the MERN stack.
 
 ```text
 taskflow/
-├── taskflow-frontend/     # React + Vite frontend
+├── taskflow-frontend/          # React + Vite frontend
 │   ├── src/
 │   │   ├── components/
 │   │   ├── context/
@@ -81,7 +81,7 @@ taskflow/
 │   │   └── App.jsx
 │   └── ...
 │
-└── taskflow-backend/      # Express backend
+└── taskflow-backend/           # Express backend
     ├── src/
     │   ├── config/
     │   ├── controllers/
@@ -91,31 +91,38 @@ taskflow/
     │   ├── jobs/
     │   └── server.js
     └── ...
+```
 
+---
 
-Getting Started (Local Development)
+## Getting Started (Local Development)
 
-Prerequisites
+### Prerequisites
 
-Node.js 18+
-MongoDB (local or Atlas)
-Cloudinary account
-Google Cloud OAuth credentials
-Razorpay test keys (optional)
-Groq API key (optional)
+- Node.js 18+
+- MongoDB (local or Atlas)
+- Cloudinary account
+- Google Cloud OAuth credentials
+- Razorpay test keys (optional)
+- Groq API key (optional)
 
-1. Clone the repository
+### 1. Clone the repository
 
+```bash
 git clone https://github.com/AbdulR1345/TaskFlow.git
 cd TaskFlow
+```
 
-2. Backend Setup
+### 2. Backend Setup
 
+```bash
 cd taskflow-backend
 npm install
+```
 
-Create a .env file:
+Create a `.env` file:
 
+```env
 PORT=5000
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
@@ -136,83 +143,100 @@ GROQ_API_KEY=your_groq_api_key
 
 EMAIL_USER=your_email
 EMAIL_PASSWORD=your_email_app_password
+```
 
 Start the backend:
 
+```bash
 npm run dev
+```
 
-3. Frontend Setup
+### 3. Frontend Setup
 
+```bash
 cd ../taskflow-frontend
 npm install
+```
 
-Create a .env file:
+Create a `.env` file:
 
+```env
 VITE_API_URL=http://localhost:5000/api
+```
 
 Start the frontend:
 
+```bash
 npm run dev
-
-Open http://localhost:5173
-
-Environment Variables (Production)
-
-Backend (Render)
-
-MONGO_URI
-JWT_SECRET
-CLIENT_URL
-GOOGLE_CLIENT_ID
-GOOGLE_CLIENT_SECRET
-GOOGLE_CALLBACK_URL
-CLOUDINARY_CLOUD_NAME
-CLOUDINARY_API_KEY
-CLOUDINARY_API_SECRET
-RAZORPAY_KEY_ID
-RAZORPAY_KEY_SECRET
-GROQ_API_KEY
-EMAIL_USER
-EMAIL_PASSWORD
-NODE_ENV=production
-
-Frontend (Vercel)
-
-VITE_API_URL=https://your-backend-url.onrender.com/api
-
-
-API Overview
-
-Method,Endpoint,Description
-POST,/api/auth/register,Register user
-POST,/api/auth/login,Login
-GET,/api/auth/me,Get current user
-GET,/api/auth/google,Google OAuth
-PUT,/api/auth/avatar,Upload profile picture
-GET,/api/tasks,Get tasks (paginated)
-POST,/api/tasks,Create task
-PUT,/api/tasks/:id,Update task
-DELETE,/api/tasks/:id,Delete task
-POST,/api/payment/create-order,Create Razorpay order
-POST,/api/ai/summarize,Summarize tasks
-
-Future Improvements:
-
-Re-enable reliable email verification (Resend / Brevo)
-Real-time notifications with Socket.io
-Task collaboration / sharing
-Mobile app (React Native)
-Better analytics dashboard
-
-Author
-
-Abdul Rahaman G
-
-GitHub: https://github.com/AbdulR1345
-LinkedIn: https://www.linkedin.com/in/abdulrahaman13/
-
-
-License:
-
-This project is open source and available under the MIT License [blocked].
 ```
+
+Open [http://localhost:5173](http://localhost:5173)
+
+---
+
+## Environment Variables (Production)
+
+### Backend (Render)
+
+- `MONGO_URI`
+- `JWT_SECRET`
+- `CLIENT_URL`
+- `GOOGLE_CLIENT_ID`
+- `GOOGLE_CLIENT_SECRET`
+- `GOOGLE_CALLBACK_URL`
+- `CLOUDINARY_CLOUD_NAME`
+- `CLOUDINARY_API_KEY`
+- `CLOUDINARY_API_SECRET`
+- `RAZORPAY_KEY_ID`
+- `RAZORPAY_KEY_SECRET`
+- `GROQ_API_KEY`
+- `EMAIL_USER`
+- `EMAIL_PASSWORD`
+- `NODE_ENV=production`
+
+### Frontend (Vercel)
+
+- `VITE_API_URL=https://taskflow-rs2o.onrender.com/api`
+
+---
+
+## API Overview
+
+| Method | Endpoint                    | Description            |
+| ------ | --------------------------- | ---------------------- |
+| POST   | `/api/auth/register`        | Register user          |
+| POST   | `/api/auth/login`           | Login                  |
+| GET    | `/api/auth/me`              | Get current user       |
+| GET    | `/api/auth/google`          | Google OAuth           |
+| PUT    | `/api/auth/avatar`          | Upload profile picture |
+| GET    | `/api/tasks`                | Get tasks (paginated)  |
+| POST   | `/api/tasks`                | Create task            |
+| PUT    | `/api/tasks/:id`            | Update task            |
+| DELETE | `/api/tasks/:id`            | Delete task            |
+| POST   | `/api/payment/create-order` | Create Razorpay order  |
+| POST   | `/api/ai/summarize`         | Summarize tasks        |
+
+---
+
+## Future Improvements
+
+- Re-enable reliable email verification (Resend / Brevo)
+- Real-time notifications with Socket.io
+- Task collaboration / sharing
+- Mobile app (React Native)
+- Better analytics dashboard
+
+---
+
+## Author
+
+**Abdul Rahaman G**
+
+- GitHub: [https://github.com/AbdulR1345](https://github.com/AbdulR1345)
+- LinkedIn: [https://www.linkedin.com/in/abdulrahaman13/](https://www.linkedin.com/in/abdulrahaman13/)
+
+---
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE).
